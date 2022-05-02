@@ -53,6 +53,8 @@ void UXMLParserSS::SetMeshDataList(FString LevelName)
 			GI->FloorMeshDataList = SetFloorMeshData(ele);
 			GI->ObjectMeshDataList = SetObjectMeshData(ele);
 			GI->NodeDataList = SetNodeData(ele);
+			GI->WindowDataList = SetWindowData(ele);
+			GI->DoorDataList = SetDoorData(ele);
 			//StairMesh = SetStairMesh(ele);
 		}
 	}
@@ -427,3 +429,58 @@ TArray<FVector> UXMLParserSS::SetCircleColumnVector(FVector StartPoint, FVector 
 	return ColumnVertexList;
 }
 
+TArray<FDoorData> UXMLParserSS::SetDoorData(tinyxml2::XMLElement* LevelNode)
+{
+	FDoorData DoorData;
+	TArray<FDoorData> DoorDataList;
+
+	FString PointX, PointY;
+
+	float LevelElevation = atof(LevelNode->FirstChildElement("Elevation")->GetText());
+
+	tinyxml2::XMLElement* DoorNode = LevelNode->FirstChildElement("ElementCollection")->FirstChildElement("Door");
+
+	for (tinyxml2::XMLElement* ele = DoorNode; ele != NULL; ele = ele->NextSiblingElement("Door")) {
+
+		FString(ele->FirstChildElement("Point")->FirstChildElement("Pos")->GetText()).Split(TEXT(","), &PointX, &PointY);
+
+		DoorData.Location = FVector(-FCString::Atof(*PointX.TrimQuotes()), FCString::Atof(*PointY.TrimQuotes()), LevelElevation);
+
+		DoorData.Direction = FRotator(0, atof(ele->FirstChildElement("Direction")->GetText()),0);
+		DoorData.Width = atof(ele->FirstChildElement("Width")->GetText());
+		DoorData.Height = atof(ele->FirstChildElement("Height")->GetText());
+		DoorData.Elevation = atof(ele->FirstChildElement("Elevation")->GetText());
+		DoorData.Type = atoi(ele->FirstChildElement("DoorType")->GetText());
+
+		DoorDataList.Add(DoorData);
+	}
+	return DoorDataList;
+}
+
+TArray<FWindowData> UXMLParserSS::SetWindowData(tinyxml2::XMLElement* LevelNode)
+{
+	FWindowData WindowData;
+	TArray<FWindowData> WindowDataList;
+
+	FString PointX, PointY;
+
+	float LevelElevation = atof(LevelNode->FirstChildElement("Elevation")->GetText());
+
+	tinyxml2::XMLElement* WindowNode = LevelNode->FirstChildElement("ElementCollection")->FirstChildElement("Window");
+
+	for (tinyxml2::XMLElement* ele = WindowNode; ele != NULL; ele = ele->NextSiblingElement("Window")) {
+
+		WindowData.Name = UTF8_TO_TCHAR(ele->FirstChildElement("WindowProperties")->FirstChildElement("Property")->FirstChildElement("Value")->GetText());
+
+		FString(ele->FirstChildElement("Point")->FirstChildElement("Pos")->GetText()).Split(TEXT(","), &PointX, &PointY);
+
+		WindowData.Location = FVector(-FCString::Atof(*PointX.TrimQuotes()), FCString::Atof(*PointY.TrimQuotes()), LevelElevation);
+		WindowData.Direction = FRotator(0, atof(ele->FirstChildElement("Direction")->GetText()), 0);
+		WindowData.Width = atof(ele->FirstChildElement("Width")->GetText());
+		WindowData.Height = atof(ele->FirstChildElement("Height")->GetText());
+		WindowData.Elevation = atof(ele->FirstChildElement("Elevation")->GetText());
+	
+		WindowDataList.Add(WindowData);
+	}
+	return WindowDataList;
+}

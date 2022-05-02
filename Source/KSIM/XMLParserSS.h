@@ -32,9 +32,9 @@ public:
 	TArray<FColumnMeshData> SetColumnMeshData(tinyxml2::XMLElement* LevelNode);
 	TArray<FFloorMeshData> SetFloorMeshData(tinyxml2::XMLElement* LevelNode);
 	TArray<F3DObjectData> SetObjectMeshData(tinyxml2::XMLElement* LevelNode);
-	//TArray<FWindowData> SetWindowData(tinyxml2::XMLElement* LevelNode);
-	//TArray<FDoordata> SetDoorData(tinyxml2::XMLElement* LevelNode);
 	TArray<FNodeData> SetNodeData(tinyxml2::XMLElement* LevelNode);
-	//TArray<FStairData> SetStairData(tinyxml2::XMLElement* LevelNode);
 	TArray<FVector> SetCircleColumnVector(FVector StartPoint, FVector EndPoint, float Radius, int32 Segments);
+	TArray<FDoorData> SetDoorData(tinyxml2::XMLElement* LevelNode);
+	TArray<FWindowData> SetWindowData(tinyxml2::XMLElement* LevelNode);
+	//TArray<FStairData> SetStairData(tinyxml2::XMLElement* LevelNode);
 };
