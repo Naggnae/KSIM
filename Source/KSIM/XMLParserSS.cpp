@@ -153,6 +153,7 @@ TArray<FColumnMeshData> UXMLParserSS::SetColumnMeshData(tinyxml2::XMLElement* Le
 	FString PointX;
 	FString PointY;
 
+	FVector BasicColumnVector;
 	FVector CircleStart;
 	FVector CircleEnd;
 	
@@ -169,14 +170,13 @@ TArray<FColumnMeshData> UXMLParserSS::SetColumnMeshData(tinyxml2::XMLElement* Le
 				FString(ele2->FirstChildElement("Point")->FirstChildElement("Pos")->GetText()).Split(TEXT(","), &PointX, &PointY);
 
 				ColumnMeshData.VertexList.Add(FVector(-FCString::Atof(*PointX.TrimQuotes()), -FCString::Atof(*PointY.TrimQuotes()), Elevation));
-				
+				ColumnMeshData.VertexList.Add(FVector(-FCString::Atof(*PointX.TrimQuotes()), -FCString::Atof(*PointY.TrimQuotes()), Elevation + Height));
 			}
-
-			for (int i = 0; i < 4; i++)
-			{
-				ColumnMeshData.VertexList.Add(FVector(ColumnMeshData.VertexList[i].X, ColumnMeshData.VertexList[i].Y, Elevation + Height));
-			}
-			
+			BasicColumnVector = ColumnMeshData.VertexList[0];
+			ColumnMeshData.VertexList.Add(BasicColumnVector);
+			BasicColumnVector = ColumnMeshData.VertexList[1];
+			ColumnMeshData.VertexList.Add(BasicColumnVector);
+										 
 			ColumnMeshDataList.Add(ColumnMeshData);
 		}		
 		else if (FString("Circle") == UTF8_TO_TCHAR(ele->FirstChildElement()->NextSiblingElement()->Name()))
@@ -196,6 +196,11 @@ TArray<FColumnMeshData> UXMLParserSS::SetColumnMeshData(tinyxml2::XMLElement* Le
 
 				ColumnMeshData.VertexList = SetCircleColumnVector(CircleStart, CircleEnd, Radius, 20);
 				
+				BasicColumnVector = ColumnMeshData.VertexList[0];
+				ColumnMeshData.VertexList.Add(BasicColumnVector);
+				BasicColumnVector = ColumnMeshData.VertexList[1];
+				ColumnMeshData.VertexList.Add(BasicColumnVector);
+
 				ColumnMeshDataList.Add(ColumnMeshData);
 			}
 		}
