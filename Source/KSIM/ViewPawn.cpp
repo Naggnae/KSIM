@@ -8,6 +8,16 @@ AViewPawn::AViewPawn()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
+	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+
+	SpringArm->SetupAttachment(RootComponent);
+	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
+
+
+
 }
 
 // Called when the game starts or when spawned

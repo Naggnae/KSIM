@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include <Runtime/Engine/Classes/GameFramework/SpringArmComponent.h>
+#include <Runtime/Engine/Classes/Camera/CameraComponent.h>
 #include "ViewPawn.generated.h"
 
 UCLASS()
@@ -25,5 +27,11 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+protected:
+	UPROPERTY(EditAnywhere)
+	USpringArmComponent* SpringArm;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UCameraComponent* Camera;
 
 };
