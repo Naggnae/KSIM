@@ -23,7 +23,7 @@ void AA_BIM::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void AA_BIM::InitProceduralMeshArray()
+void AA_BIM::InitVariable()
 {
 	for (auto Component: GI->WallMeshComponents)
 	{
@@ -45,12 +45,38 @@ void AA_BIM::InitProceduralMeshArray()
 	{
 		Component->DestroyComponent();
 	}
-	
+	for (auto Door : GI->DoorObjects)
+	{
+		Door->Destroy();
+	}
+	for (auto Window : GI->WindowObjects)
+	{
+		Window->Destroy();
+	}
+	for (auto Node : GI->NodeObjects)
+	{
+		Node->Destroy();
+	}
+	for (auto Spline : GI->TopologyLines) 
+	{
+		Spline->DestroyComponent();
+	}
+	for (auto SplineMesh : GI->TopologyLineMeshes)
+	{
+		SplineMesh->DestroyComponent();
+	}
+
 	GI->WallMeshComponents.Empty();
 	GI->CurtainWallMeshComponents.Empty();
 	GI->ColumnMeshComponents.Empty();
 	GI->FloorMeshComponents.Empty();
 	GI->ObjectMeshComponents.Empty();
+	GI->DoorObjects.Empty();
+	GI->WindowObjects.Empty();
+	GI->NodeObjects.Empty();
+	GI->TopologyLines.Empty();
+	GI->TopologyLineMeshes.Empty();
+	GI->NodeLocations.Empty();
 }
 
 

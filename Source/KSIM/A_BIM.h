@@ -30,5 +30,5 @@ public:
 
 public:
 	UFUNCTION(BlueprintCallable,Category="K-SIM/BIM")
-	void InitProceduralMeshArray();
+	void InitVariable();
 };

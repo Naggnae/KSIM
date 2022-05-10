@@ -6,8 +6,9 @@
 #include "ProceduralMeshComponent.h"
 #include "KSIMStruct.h"
 #include "Engine/GameInstance.h"
+#include <Runtime/Engine/Classes/Components/SplineComponent.h>
+#include <Runtime/Engine/Classes/Components/SplineMeshComponent.h>
 #include "GI.generated.h"
-
 /**
  * Define Data structs
  */
@@ -28,6 +29,18 @@ public:
 	TArray<UProceduralMeshComponent*> FloorMeshComponents;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="K-SIM/BIM")
 	TArray<UProceduralMeshComponent*> ObjectMeshComponents;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "K-SIM/BIM")
+	TArray<AActor*> DoorObjects;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "K-SIM/BIM")
+	TArray<AActor*> WindowObjects;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "K-SIM/BIM")
+	TArray<AActor*> NodeObjects;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "K-SIM/BIM")
+	TMap<FString, FVector> NodeLocations;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "K-SIM/BIM")
+	TArray<USplineComponent*> TopologyLines;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "K-SIM/BIM")
+	TArray<USplineMeshComponent*> TopologyLineMeshes;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "K-SIM/BIM")
