@@ -56,6 +56,7 @@ void UXMLParserSS::SetMeshDataList(FString LevelName)
 			GI->WindowDataList = SetWindowData(ele);
 			GI->DoorDataList = SetDoorData(ele);
 			//StairMesh = SetStairMesh(ele);
+
 		}
 	}
 }

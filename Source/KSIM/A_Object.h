@@ -3,19 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GI.h"
 #include "GameFramework/Actor.h"
-#include "Windows/AllowWindowsPlatformTypes.h"
-#include "A_BIM.generated.h"
+#include "A_Object.generated.h"
 
 UCLASS()
-class KSIM_API AA_BIM : public AActor
+class KSIM_API AA_Object : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AA_BIM();
+	AA_Object();
 
 protected:
 	// Called when the game starts or when spawned
@@ -24,9 +22,5 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-public:
-	UGI* GI;
-
 
 };
